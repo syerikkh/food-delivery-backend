@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logIn = exports.signUp = exports.getUsers = void 0;
+exports.logIn = exports.signUp = exports.deleteUsers = exports.getUsers = void 0;
 const userModel_1 = require("../models/userModel");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -30,6 +30,17 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUsers = getUsers;
+const deleteUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield userModel_1.User.deleteMany({ role: "User" });
+        res.status(200).json({ message: "Deleted successfully" });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(400).json({ error: "Failed to delete" });
+    }
+});
+exports.deleteUsers = deleteUsers;
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, phoneNumber, password, role } = req.body;
     try {

@@ -17,6 +17,16 @@ export const getUsers = async (req: express.Request, res: express.Response) => {
     }
 }
 
+// export const deleteUsers = async (req: express.Request, res: express.Response) => {
+//     try {
+//         await User.deleteMany({ role: "User" });
+//         res.status(200).json({ message: "Deleted successfully" })
+//     } catch (error) {
+//         console.error(error);
+//         res.status(400).json({ error: "Failed to delete" })
+//     }
+// }
+
 export const signUp = async (req: express.Request, res: express.Response) => {
     const { name, email, phoneNumber, password, role } = req.body;
 
