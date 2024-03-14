@@ -58,11 +58,10 @@ export const logIn = async (req: express.Request, res: express.Response) => {
         const accessToken = jwt.sign({ id: user._id }, secretKey, { expiresIn: '1h' });
         const refreshToken = jwt.sign({ id: user._id }, secretKey, { expiresIn: '1d' })
 
-        res
-            .status(200)
-            .cookie('refreshToken', refreshToken)
-            .cookie('accessToken', accessToken)
-            .send({ user, message: 'Successfully logged in' })
+        res.cookie('refreshToken', refreshToken, { httpOnly: true });
+        res.cookie('accessToken', accessToken, { httpOnly: true });
+
+        res.status(200).json({ user, message: 'Successfully logged in' });
 
     } catch (error) {
         console.error(error);
